@@ -50,8 +50,8 @@ def get_bars_info(bars,my_coords):
 
 def get_map():
     load_dotenv()
-    YANDEXAPI = os.getenv("YANDEXAPI")
-    my_coords = fetch_coordinates(YANDEXAPI, address)
+    yandex_api = os.getenv("YANDEXAPI")
+    my_coords = fetch_coordinates(yandex_api, address)
     bars = read_json("coffee.json")
     bars_info = get_bars_info(bars, my_coords)
     m = folium.Map(
@@ -71,8 +71,12 @@ def get_map():
         return file.read()
 
 
-if __name__ == "__main__":
-    address = input("Где вы находитесь?")
+def main():
     app = Flask(__name__)
     app.add_url_rule('/', 'hello', get_map)
     app.run('0.0.0.0')
+
+
+if __name__ == "__main__":
+    address = input("Где вы находитесь?")
+    main()
